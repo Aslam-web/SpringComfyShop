@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Login Page</title>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">ComfyShop</a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline">
+          <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 80px">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <strong> SIGN IN TO CONTINUE</strong>
+            </div>
+            <div class="card-body">
+              <!-- <form action="#" method="POST"> -->
+              <form action="login" method="post" modelAttribute="user">
+                <fieldset>
+                  <div class="row justify-content-center">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                          </span>
+                          <input
+                            class="form-control"
+                            placeholder="example@gmail.com"
+                            type="email"
+                            path="email"
+                            required="true"
+                          />
+                        </div>
+                        <!-- <p class="text-center text-danger"><form:errors path="email"></form:errors></p> -->
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-lock"></i>
+                          </span>
+                          <input
+                            class="form-control"
+                            placeholder="********"
+                            type="password"
+                            path="password"
+                            required="true"
+                          />
+                        </div>
+                        <!-- <p class="text-center text-danger"><form:errors path="password"></form:errors></p> -->
+                      </div>
+                      <div class="form-group">
+                        <input
+                          type="submit"
+                          class="btn btn-lg btn-primary btn-block"
+                          value="Sign in"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="card-footer">
+              Don't have an account?
+              <a href="/test/registration.html">Sign Up here</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
