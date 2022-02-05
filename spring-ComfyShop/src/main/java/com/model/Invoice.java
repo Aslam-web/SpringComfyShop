@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Invoice {
@@ -14,14 +15,21 @@ public class Invoice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int invoiceId;
+//	System.out.printf("IN_%05d",invoiceId)
 
+	@NotNull
 	int totalAmount;
+	@NotNull
 	String username;
+	@NotNull
 	Date orderDate;
+	@NotNull
 	String shippingAddr;
 
-	public Invoice(int invoiceId, int totalAmount, String username, Date orderDate, String shippingAddr) {
-		this.invoiceId = invoiceId;
+	public Invoice() {
+	}
+
+	public Invoice(int totalAmount, String username, Date orderDate, String shippingAddr) {
 		this.totalAmount = totalAmount;
 		this.username = username;
 		this.orderDate = orderDate;

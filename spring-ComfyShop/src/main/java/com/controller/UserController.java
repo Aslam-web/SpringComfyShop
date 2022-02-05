@@ -1,20 +1,21 @@
 package com.controller;
 
+import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.model.User;
 import com.service.UserService;
 
 @Controller
-@ComponentScan({ "com" })
 @RequestMapping(value = { "/", "/user" })
 public class UserController {
 
@@ -23,20 +24,24 @@ public class UserController {
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String showLogin(ModelMap m) {
+		// add the domain url as an attribute to session
+		// log out of the user that was previously logged in
+
 		User user = new User();
 		m.addAttribute("user", user);
 		return "user/login";
 	}
 
 	@RequestMapping(value = { "/login" }, method = RequestMethod.POST)
-	public String processLogin(User user, BindingResult result, HttpSession session, ModelMap m) {
+	public String processLogin(User user, BindingResult result, HttpSession session, HttpServletRequest request,
+			ModelMap m) {
 
 //		if(result.hasErrors()) {
 //			System.out.println("has errors");
 //			return "login";
 //		}
-		
-		if(session.getAttribute("username")!=null && !session.getAttribute("username").equals("")) {
+
+		if (session.getAttribute("username") != null && !session.getAttribute("username").equals("")) {
 			userService.logoutUser(session.getAttribute("username").toString());
 		}
 
@@ -52,12 +57,19 @@ public class UserController {
 			String password = user.getPassword();
 			if (entity.getPassword().equals(password)) {
 				userService.loginUser(email, password);
-				session.setAttribute("username", email);
-				session.setAttribute("email", email);
-				m.addAttribute("user", userService.getUser(email));
-				m.addAttribute("success_info", "Welcome " + entity.getName());
 
-				return "success";
+				{
+					/*
+					 * Global attributes once you logged in
+					 */
+					session.setAttribute("loggedIn", true);
+					session.setAttribute("username", email);
+					session.setAttribute("email", email);
+				}
+
+				String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build()
+						.toString();
+				return "redirect:" + baseUrl + "/product/list";
 			} else {
 				m.addAttribute("error_info", "password for : " + email + " is incorrect !!!");
 				System.out.println("Password incorrect");
@@ -78,11 +90,13 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String processRegistration(User user, BindingResult result, HttpSession session, ModelMap m) {
-		
+	public String processRegistration(User user, BindingResult result, HttpSession session, HttpServletRequest request,
+			ModelMap m) {
+
 		User entity = userService.getUser(user.getEmail());
-		if(entity!=null) {
-			m.addAttribute("error_info", "User with email : " + user.getEmail() + " already exist. Try logging in instead!!!");
+		if (entity != null) {
+			m.addAttribute("error_info",
+					"User with email : " + user.getEmail() + " already exist. Try logging in instead!!!");
 			System.out.println("User already exist. They may login instead");
 			return "failure";
 		}
@@ -91,23 +105,30 @@ public class UserController {
 		userService.addUser(user);
 		session.setAttribute("username", user.getEmail());
 		session.setAttribute("email", user.getEmail());
-		m.addAttribute("success_info", user.getName() +" has registered successfully");
 
-		return "success";
+		String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build().toString();
+		return "redirect:" + baseUrl + "/product/list";
 	}
-	
+
 	@RequestMapping(value = "/logout")
 	public String logoutUser(HttpSession session, ModelMap m) {
 		Object username = session.getAttribute("username");
 		System.out.println(username);
-		if(username==null || username.equals("")) {
+		if (username == null || username.equals("")) {
 			System.out.println("You must be logged in first");
 			m.addAttribute("error_info", "You must be logged in first!!!");
 			return "failure";
 		}
 		userService.logoutUser(username.toString());
-		session.removeAttribute("username");
-		session.removeAttribute("email");
+
+		{
+			/*
+			 * Global attributes once you log out
+			 */
+			session.removeAttribute("username");
+			session.removeAttribute("email");
+			session.setAttribute("loggedIn", false);
+		}
 		return "redirect:user/login";
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -14,11 +15,16 @@ public class User {
 	@Size(max=50)
 	String email;
 
+	@NotNull
 	String password;
+	@NotNull
 	String name;
+	@NotNull
 	String role;
+	@NotNull
 	String address;
 
+	@NotNull
 	@Column(columnDefinition = "boolean default false")
 	boolean active;
 	

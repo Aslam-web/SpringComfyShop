@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.model.User;
 import com.repository.UserDAO;
 
-@Service
+@Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
 

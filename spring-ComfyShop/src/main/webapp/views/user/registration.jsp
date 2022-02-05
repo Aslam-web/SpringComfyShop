@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%> <%@ taglib prefix="form"
-uri="http://www.springframework.org/tags/form"%>
+pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,16 +26,15 @@ uri="http://www.springframework.org/tags/form"%>
                   <label for="email" class="control-label">Your Email</label>
                   <div class="cols-sm-10">
                     <div class="input-group">
-                      <span class="input-group-addon"
-                        ><i class="fa fa-envelope fa" aria-hidden="true"></i
-                      ></span>
+                      <span class="input-group-addon"></span>
                       <input
-                        type="text"
+                        type="email"
                         class="form-control"
                         name="email"
                         id="email"
                         placeholder="Enter your Email"
                         required="true"
+                        autofocus="true"
                       />
                     </div>
                   </div>
@@ -48,9 +46,7 @@ uri="http://www.springframework.org/tags/form"%>
                   >
                   <div class="cols-sm-10">
                     <div class="input-group">
-                      <span class="input-group-addon"
-                        ><i class="fa fa-lock fa-lg" aria-hidden="true"></i
-                      ></span>
+                      <span class="input-group-addon"></span>
                       <input
                         type="password"
                         class="form-control"
@@ -69,9 +65,7 @@ uri="http://www.springframework.org/tags/form"%>
                   >
                   <div class="cols-sm-10">
                     <div class="input-group">
-                      <span class="input-group-addon"
-                        ><i class="fa fa-user fa" aria-hidden="true"></i
-                      ></span>
+                      <span class="input-group-addon"></span>
                       <input
                         type="text"
                         class="form-control"
@@ -85,9 +79,7 @@ uri="http://www.springframework.org/tags/form"%>
                 </div>
                 <!-- ROLE -->
                 <div class="form-group">
-                  <label for="name" class="cols-sm-2 control-label"
-                    >Your Role</label
-                  >
+                  <span class="input-group-addon"></span>
                   <div class="cols-sm-10">
                     <div class="input-group">
                       <span class="input-group-addon"
@@ -111,9 +103,7 @@ uri="http://www.springframework.org/tags/form"%>
                   >
                   <div class="cols-sm-10">
                     <div class="input-group">
-                      <span class="input-group-addon"
-                        ><i class="fa fa-lock fa-lg" aria-hidden="true"></i
-                      ></span>
+                      <span class="input-group-addon"></span>
                       <input
                         type="text"
                         class="form-control"

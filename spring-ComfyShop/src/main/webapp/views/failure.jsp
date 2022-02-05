@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="header.jsp" %>
-	<h2 style="margin-top:80px;">ERROR : ${error_info}</h2>
+	<%@ include file="header.jsp"%>
+	<h1 style="margin-top: 80px;">ERROR :</h1>
+	<br>
+	<br>
+	<h2>${error_info}</h2>
 </body>
 </html>

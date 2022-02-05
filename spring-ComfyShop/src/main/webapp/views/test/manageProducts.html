@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- HEADER FILE INCLUDED START -->
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+    $(function () {
+      $("#header").load("header.html");
+    });
+  </script>
+  <!-- HEADER FILE INCLUDED END -->
+
+  <!-- FONT AWESOME CHEVRON (UP/DOWN) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="../css/manageProducts.css" />
+  <script src="../js/manageProducts.js"></script>
+  <title>Product Manage Page</title>
+</head>
+
+<body>
+
+  <div id="header"></div>
+
+  <div class="container mb-50" style="margin-top:80px">
+
+    <!-- the toggle button -->
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between">
+                <button class="btn btn-primary" id="btn-toggle" type="button" data-toggle="collapse show"
+                  data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                  Add Product
+                </button>
+                <i class="fa fa-chevron-up fa-2x"></i>
+              </div>
+              <div class="card-body collapse show" id="collapseExample">
+                <form class="col-md-12" method="post" action="#">
+                  <!-- PRODUCT NAME -->
+                  <div class="form-group">
+                    <label for="productName" class="control-label">Product Name</label>
+                    <div class="cols-sm-10">
+                      <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="productName" id="productName"
+                          placeholder="Enter product name" required="true" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- P.DESCRIPTION -->
+                  <div class="form-group">
+                    <label for="productDesc" class="cols-sm-2 control-label">Product Description</label>
+                    <div class="cols-sm-10">
+                      <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="productDesc" id="productDesc"
+                          placeholder="Enter product description" required="true" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- P.PRICE -->
+                  <div class="form-group">
+                    <label for="price" class="cols-sm-2 control-label">Product Price</label>
+                    <div class="cols-sm-10">
+                      <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="number" class="form-control" name="price" id="price"
+                          placeholder="Enter product price" required="true" min="1" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- P.STOCK -->
+                  <div class="form-group">
+                    <label for="stock" class="cols-sm-2 control-label">Stock</label>
+                    <div class="cols-sm-10">
+                      <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="number" class="form-control" name="stock" id="stock" value="1" min="1"
+                          required="true" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- P.IMAGE -->
+                  <div class="form-group">
+                    <label for="image" class="cols-sm-2 control-label">Image Link</label>
+                    <div class="cols-sm-10">
+                      <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="image" id="image"
+                          placeholder="XYZ street, LA, USA" required="true" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">
+                      CONFIRM
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><strong>All Products</strong></h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <td><strong>Product Id</strong></td>
+                    <td class="text-center"><strong>Product Name</strong></td>
+                    <td class="text-center"><strong>Product Price</strong></td>
+                    <td class="text-center"><strong>In Stock</strong></td>
+                    <td class="text-center"><strong>EDIT</strong></td>
+                    <td class="text-center"><strong>DELETE</strong></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  foreach ($order->lineItems as $line) or some such thing here
+                  <tr class="justify-content-center">
+                    <td>1</td>
+                    <td class="text-center">T-Shirt</td>
+                    <td class="text-center">$10.99</td>
+                    <td class="text-center">45</td>
+                    <td class="text-center"><a class="btn btn-info" href="">EDIT</a></td>
+                    <td class="text-center"><a class="btn btn-danger" href="">DELETE</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

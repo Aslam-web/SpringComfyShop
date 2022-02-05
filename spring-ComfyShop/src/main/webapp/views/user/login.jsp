@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,7 +28,7 @@ pageEncoding="ISO-8859-1"%>
                           <span class="input-group-addon">
                             <i class="glyphicon glyphicon-user"></i>
                           </span>
-                          <form:input class="form-control" placeholder="example@gmail.com" type="email" path="email" required="true"/>
+                          <form:input class="form-control" placeholder="example@gmail.com" type="email" path="email" required="true" autofocus="true"/>
                         </div>
                         <p class="text-center text-danger"><form:errors path="email"></form:errors></p>
                       </div>

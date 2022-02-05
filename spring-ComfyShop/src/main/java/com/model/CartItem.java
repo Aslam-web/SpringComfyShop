@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class CartItem {
@@ -14,23 +15,39 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int cartItemId;
 
+	@NotNull
 	int productId;
+	
+	@NotNull
 	String productName;
+	@NotNull
 	int quantity;
+	@NotNull
 	int price;
 
+	@NotNull
 	String username;
-	String paymentStatus;
+	
+	@NotNull
+//	@Column(columnDefinition = "varchar default NP")
+	String paymentStatus; // "P" (or) "NP" (or) "JP" 	i.e. {PAID, NOT_PAID, JUST_PAID}
+	
+	@NotNull
+	String image;
 
-	public CartItem(int cartItemId, int productId, String productName, int quantity, int price, String username,
-			String paymentStatus) {
-		this.cartItemId = cartItemId;
+	public CartItem() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public CartItem(int productId, String productName, int quantity, int price, String username,
+			String paymentStatus, String image) {
 		this.productId = productId;
 		this.productName = productName;
 		this.quantity = quantity;
 		this.price = price;
 		this.username = username;
 		this.paymentStatus = paymentStatus;
+		this.image = image;
 	}
 
 	public int getCartItemId() {
@@ -89,16 +106,17 @@ public class CartItem {
 		this.paymentStatus = paymentStatus;
 	}
 
-	@Override
-	public String toString() {
-		return "CartItem [cartItemId=" + cartItemId + ", productId=" + productId + ", productName=" + productName
-				+ ", quantity=" + quantity + ", price=" + price + ", username=" + username + ", paymentStatus="
-				+ paymentStatus + "]";
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cartItemId, paymentStatus, price, productId, productName, quantity, username);
+		return Objects.hash(cartItemId, image, paymentStatus, price, productId, productName, quantity, username);
 	}
 
 	@Override
@@ -110,9 +128,16 @@ public class CartItem {
 		if (getClass() != obj.getClass())
 			return false;
 		CartItem other = (CartItem) obj;
-		return cartItemId == other.cartItemId && Objects.equals(paymentStatus, other.paymentStatus)
-				&& price == other.price && productId == other.productId
-				&& Objects.equals(productName, other.productName) && quantity == other.quantity
-				&& Objects.equals(username, other.username);
+		return cartItemId == other.cartItemId && Objects.equals(image, other.image)
+				&& Objects.equals(paymentStatus, other.paymentStatus) && price == other.price
+				&& productId == other.productId && Objects.equals(productName, other.productName)
+				&& quantity == other.quantity && Objects.equals(username, other.username);
+	}
+
+	@Override
+	public String toString() {
+		return "CartItem [cartItemId=" + cartItemId + ", productId=" + productId + ", productName=" + productName
+				+ ", quantity=" + quantity + ", price=" + price + ", username=" + username + ", paymentStatus="
+				+ paymentStatus + ", image=" + image + "]";
 	}
 }

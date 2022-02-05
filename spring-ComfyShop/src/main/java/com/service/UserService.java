@@ -10,5 +10,4 @@ public interface UserService {
 	boolean checkUserByEmail(String email);
 	boolean loginUser(String email, String password);
 	boolean logoutUser(String email);
-	
 }

@@ -3,6 +3,7 @@ package com.repository;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Property;
@@ -41,6 +42,17 @@ public class CartItemDAOImpl implements CartItemDAO {
 			System.out.println("No such CartItem exists in database");
 		}
 	}
+	
+	@Override
+	public void updateCartItemByPaymentStatus(int cartItemId, String status) {
+		CartItem entity = getSession().get(CartItem.class, cartItemId);
+		if (entity != null) {
+			entity.setPaymentStatus(status);
+			getSession().persist(entity);
+		} else {
+			System.out.println("No such CartItem exists in database");
+		}
+	}
 
 	@Override
 	public void deleteCartItem(CartItem cartItem) {
@@ -55,6 +67,13 @@ public class CartItemDAOImpl implements CartItemDAO {
 		} else {
 			System.out.println("No such CartItem exists in database");
 		}
+	}
+	
+	@Override
+	public void deleteCartItemsByUsername(String username) {
+		Query query = getSession().createQuery("delete from cartItem where username=:username");
+		query.setParameter("username", username);
+		query.executeUpdate();
 	}
 
 	@Override
@@ -78,6 +97,14 @@ public class CartItemDAOImpl implements CartItemDAO {
 	public List<CartItem> getAllCartItemsByUsername(String username) {
 		Criteria criteria = getSession().createCriteria(CartItem.class);
 		criteria.add(Property.forName("username").eq(username));
+		return criteria.list();
+	}
+	
+	@Override
+	public List<CartItem> getUserCartItemsByPaymentStatus(String username, String paymentStatus) {
+		Criteria criteria = getSession().createCriteria(CartItem.class);
+		criteria.add(Property.forName("username").eq(username));
+		criteria.add(Property.forName("paymentStatus").eq(paymentStatus));
 		return criteria.list();
 	}
 }

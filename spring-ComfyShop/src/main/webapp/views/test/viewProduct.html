@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <style>
+    span.fa.fa-star, span.fa.fa-star-o {
+      color: gold;
+    }
+  </style>
+
+  <!-- HEADER FILE INCLUDED START -->
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+    $(function () {
+      $("#header").load("header.html");
+    });
+  </script>
+  <!-- HEADER FILE INCLUDED END -->
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/viewProduct.css">
+  <title>Product View Page</title>
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main style="margin-top: 80px;" class="container">
+
+    <!-- Left Column / Headphones Image -->
+    <div class="left-column">
+      <img data-image="red" class="active" src="../images/1.jpg" alt="image here">
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+
+      <!-- Product Description -->
+      <div class="product-description">
+        <h1>Product Name</h1>
+        <p>Product description : The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation.</p>
+      </div>
+
+      <!-- Product Configuration -->
+      <div class="product-configuration">
+
+        <!-- Cable Configuration -->
+        <div class="cable-config">
+          <strong>Rating : </strong>
+          <div>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+          </div>
+          <strong>In Stock : </strong>
+          <div>
+            <span>45</span>
+          </div>
+        </div>
+
+        <!-- Cable Configuration -->
+        <div class="cable-config">
+          <div class="product-price">
+        <span>Price : <strong>$ 148</strong></span>
+
+        </div>
+      </div>
+
+      <!-- Product Pricing -->
+      <div style="text-align: center;">
+        <a href="cart.html" class="cart-btn">Add to cart</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

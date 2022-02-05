@@ -30,7 +30,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Product entity = getSession().get(Product.class, product.getProductId());
 		if (entity != null) {
 			entity.setProductName(product.getProductName());
-			entity.setProuductDesc(product.getProuductDesc());
+			entity.setProductDesc(product.getProductDesc());
 			entity.setPrice(product.getPrice());
 			entity.setStock(product.getStock());
 			getSession().persist(entity);

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Product {
@@ -13,18 +14,30 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int productId;
 
+	@NotNull
 	String productName;
-	String prouductDesc;
+	@NotNull
+	String productDesc;
+	@NotNull
 	int price;
+	@NotNull
 	int stock;
+	
+	@NotNull
+	String image;
 
-	public Product(int productId, String productName, String prouductDesc, int price, int stock) {
-		this.productId = productId;
+	public Product() {
+	}
+	
+	public Product(String productName, String productDesc, int price, int stock, String image) {
 		this.productName = productName;
-		this.prouductDesc = prouductDesc;
+		this.productDesc = productDesc;
 		this.price = price;
 		this.stock = stock;
+		this.image = image;
 	}
+
+
 
 	public int getProductId() {
 		return productId;
@@ -42,12 +55,12 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public String getProuductDesc() {
-		return prouductDesc;
+	public String getProductDesc() {
+		return productDesc;
 	}
 
-	public void setProuductDesc(String prouductDesc) {
-		this.prouductDesc = prouductDesc;
+	public void setProductDesc(String productDesc) {
+		this.productDesc = productDesc;
 	}
 
 	public int getPrice() {
@@ -66,15 +79,23 @@ public class Product {
 		this.stock = stock;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", prouductDesc=" + prouductDesc
-				+ ", price=" + price + ", stock=" + stock + "]";
+		return "Product [productId=" + productId + ", productName=" + productName + ", productDesc=" + productDesc
+				+ ", price=" + price + ", stock=" + stock + ", image=" + image + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(price, productId, productName, prouductDesc, stock);
+		return Objects.hash(image, price, productDesc, productId, productName, stock);
 	}
 
 	@Override
@@ -86,7 +107,8 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return price == other.price && productId == other.productId && Objects.equals(productName, other.productName)
-				&& Objects.equals(prouductDesc, other.prouductDesc) && stock == other.stock;
+		return Objects.equals(image, other.image) && price == other.price
+				&& Objects.equals(productDesc, other.productDesc) && productId == other.productId
+				&& Objects.equals(productName, other.productName) && stock == other.stock;
 	}
 }
