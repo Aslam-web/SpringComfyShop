@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model.Invoice;
 import com.service.CartItemService;
+import com.service.EmailService;
 import com.service.PaymentService;
 import com.service.UserService;
 
@@ -24,16 +25,20 @@ public class PaymentController {
 
 	@Autowired
 	CartItemService cartItemService;
-	
+
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	EmailService emailService;
+
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
 	public String showPayment(HttpSession session, ModelMap m) {
-		
+
 		// validate user login
-		if (!HelperController.validateUserLogin(m, session)) return "failure";
-		
+		if (!HelperController.validateUserLogin(m, session))
+			return "failure";
+
 		// get and set totalAmount (for adding it as a url params)
 		int totalAmount = paymentService.getGrandTotalAmount(session.getAttribute("username").toString());
 		m.addAttribute("totalAmount", totalAmount);
@@ -45,7 +50,8 @@ public class PaymentController {
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String processPayment(HttpSession session, ModelMap m) {
 		// validate user login
-		if (!HelperController.validateUserLogin(m, session)) return "failure";
+		if (!HelperController.validateUserLogin(m, session))
+			return "failure";
 
 		String username = session.getAttribute("username").toString();
 
@@ -53,16 +59,16 @@ public class PaymentController {
 		m.addAttribute("user", userService.getUser(username));
 		// m-> cartItems
 		m.addAttribute("cartItems", cartItemService.getUserCartItemsByPaymentStatus(username, "NP"));
-		
+
 		Invoice invoice = paymentService.doPayment(username); // NP to P
 		m.addAttribute("invoice", invoice);
-		m.addAttribute("generatedInvoiceId", String.format("IN_%05d" , invoice.getInvoiceId()));
+		m.addAttribute("generatedInvoiceId", String.format("IN_%05d", invoice.getInvoiceId()));
+
+		// email to the customer
+		if (invoice.getTotalAmount() > 0) {
+			emailService.sendEmail(invoice);
+		}
 
 		return "invoice";
-	}
-	
-	@PreDestroy
-	public void destroy() {
-		System.out.println("Pre destroy method in invoice called ................");
 	}
 }

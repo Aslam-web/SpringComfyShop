@@ -10,8 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model.Product;
 import com.service.ProductService;
@@ -53,24 +55,24 @@ public class ProductController {
 		return loadAllProducts(m, "product/manageProducts");
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addNewProduct(@ModelAttribute Product product, BindingResult result, ModelMap m) {
-		int productId = productService.addProduct(product);
-		System.out.println(productService.getProduct(productId));
+	@RequestMapping(value = "/delete-{productId}", method = RequestMethod.GET)
+	public String deleteProduct(@PathVariable int productId, Product product, BindingResult result, ModelMap m) {
+
+		if (result.hasErrors()) {
+			m.addAttribute("error_info", result.getAllErrors().toString());
+			return "failure";
+		}
+
+		productService.deleteProductById(productId);
 
 		// load all products
 		return loadAllProducts(m, "product/manageProducts");
 	}
 
-	@RequestMapping(value = "/delete-{productId}", method = RequestMethod.GET)
-	public String deleteProduct(@PathVariable int productId, Product product, BindingResult result, ModelMap m) {
-		
-		if(result.hasErrors()) {
-			m.addAttribute("error_info", result.getAllErrors().toString());
-			return "failure";
-		}
-		
-		productService.deleteProductById(productId);
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addNewProduct(@ModelAttribute Product product, BindingResult result, ModelMap m) {
+		int productId = productService.addProduct(product);
+		System.out.println(productService.getProduct(productId));
 
 		// load all products
 		return loadAllProducts(m, "product/manageProducts");
@@ -81,5 +83,10 @@ public class ProductController {
 		m.addAttribute("products", products);
 
 		return path;
+	}
+
+	@RequestMapping(value = "/print", method = RequestMethod.POST)
+	public void printNewProduct(@RequestBody Product product, @RequestParam String productId) {
+		System.out.println("printing new product: "+product.getProductDesc()+","+productId);
 	}
 }

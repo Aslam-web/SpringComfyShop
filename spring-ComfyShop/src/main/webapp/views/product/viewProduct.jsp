@@ -281,7 +281,7 @@ span.fa.fa-star, span.fa.fa-star-o {
 					</div>
 				</div>
 				<div style="text-align: center;">
-					<a href="<c:url value="/cart/${p.productId}"/>"><button class="btn btn-success">Place Order</button></a>
+					<a href="<c:url value="/cart/${p.productId}"/>"><button class="btn btn-success">Add to Cart</button></a>
 				</div>
 			</div>
 
